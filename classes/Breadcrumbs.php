@@ -9,17 +9,16 @@ class Breadcrumbs
 {
     protected $config;
 
-    protected $items;
-
-    protected $paths;
-
     protected $page;
+
+    protected $currentPath = null;
 
     public function __construct($config, $page)
     {
         $this->config = $config;
-        $this->items = new Items();
         $this->page = $page;
+
+        $this->currentPath = $this->getCurrentPath();
     }
 
     public function getItems()
@@ -30,13 +29,9 @@ class Breadcrumbs
             $result[] = $root;
         }
 
-        if (!empty($this->config['paths'])) {
-            $this->runCurrentCallback();
-        } else {
-            $this->defaultCallback();
-        }
+        $this->runCurrentCallback();
 
-        return array_merge($result, $this->items->getAll());
+        return array_merge($result, $this->currentPath->getItems());
     }
 
     protected function getRootItem()
@@ -49,6 +44,11 @@ class Breadcrumbs
 
     protected function runCurrentCallback()
     {
+        $this->currentPath->getCallback()($this->currentPath, $this->page);
+    }
+
+    protected function getCurrentPath()
+    {
         $uri = Request::path();
 
         foreach ($this->config['paths'] as $path) {
@@ -56,15 +56,18 @@ class Breadcrumbs
              * @var Path $path
              */
             if (preg_match($path->getExpression(), $uri, $matches)) {
-                $path->getCallback()($matches, $this->items, $this->page);
-                break;
+                $path->setMatches($matches);
+                return $path;
             }
-            $this->defaultCallback();
         }
+
+        return Path::make('#^(.+)$#', function () {
+            $this->defaultCallback();
+        });
     }
 
     protected function defaultCallback()
     {
-        $this->items->add(Item::make($this->page->title));
+        $this->currentPath->addItem(Item::make($this->page->title));
     }
 }
