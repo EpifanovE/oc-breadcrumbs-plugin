@@ -1,0 +1,6 @@
+plugin:
+    name: 'eev.breadcrumbs::lang.plugin.name'
+    description: 'eev.breadcrumbs::lang.plugin.description'
+    author: 'Evgeny Epifanov'
+    icon: icon-bread-slice
+    homepage: 'https://eecode.ru'
