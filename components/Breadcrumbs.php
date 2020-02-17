@@ -27,9 +27,38 @@ class Breadcrumbs extends ComponentBase
         ];
     }
 
+    public function defineProperties()
+    {
+        return [
+            'adv_class' => [
+                'title' => 'eev.forms::lang.adv_class',
+                'description' => '',
+                'default' => '',
+                'type' => 'string',
+                'showExternalParam' => false,
+                'group' => 'eev.forms::lang.params',
+            ],
+        ];
+    }
+
     public function getItems()
     {
         return $this->breadcrumbsManager->getItems();
+    }
+
+    public function classes() {
+        $classes = [];
+
+        if (!empty($this->property('adv_class'))) {
+            $classes[] = $this->property('adv_class');
+        }
+
+        if (empty($classes)) {
+            return '';
+        }
+
+        return ' ' . join(' ', $classes);
+
     }
 
     public function onRun()

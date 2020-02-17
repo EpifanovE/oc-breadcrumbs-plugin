@@ -1,4 +1,4 @@
-<ul class="breadcrumbs">
+<ul class="breadcrumbs{{ __SELF__.classes() }}">
     {% for breadcrumb in __SELF__.getItems() %}
         <li class="breadcrumbs__item">
             {% if breadcrumb.url %}

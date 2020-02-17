@@ -4,7 +4,7 @@ use EEV\Breadcrumbs\Classes\Items;
 
 return [
     'items' => [
-        '/^uslugi$/' => function ($matches, Items $items, $page) {
+        '#^uslugi$#' => function ($matches, Items $items, $page) {
             $items->add('Услуги');
         },
     ],
