@@ -6,15 +6,7 @@ class Items
 {
     protected $items = [];
 
-    public function add($label, $url = null) {
-        $item = [
-            'label' => $label,
-        ];
-
-        if (!empty($url)) {
-            $item['url'] = $url;
-        }
-
+    public function add(Item $item) {
         $this->items[] = $item;
     }
 

@@ -1,13 +1,13 @@
 <ul class="breadcrumbs{{ __SELF__.classes() }}">
     {% for breadcrumb in __SELF__.getItems() %}
         <li class="breadcrumbs__item">
-            {% if breadcrumb.url %}
-                <a href="{{ breadcrumb.url }}" class="breadcrumbs__link">
-                    {{ breadcrumb.label }}
+            {% if breadcrumb.getUrl() %}
+                <a href="{{ breadcrumb.getUrl() }}" class="breadcrumbs__link">
+                    {{ breadcrumb.getLabel() }}
                 </a>
             {% else %}
                 <span class="breadcrumbs__text">
-                    {{ breadcrumb.label }}
+                    {{ breadcrumb.getLabel() }}
                 </span>
             {% endif %}
         </li>

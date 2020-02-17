@@ -11,6 +11,8 @@ class Breadcrumbs
 
     protected $items;
 
+    protected $paths;
+
     protected $page;
 
     public function __construct($config, $page)
@@ -28,7 +30,7 @@ class Breadcrumbs
             $result[] = $root;
         }
 
-        if (!empty($this->config['items'])) {
+        if (!empty($this->config['paths'])) {
             $this->runCurrentCallback();
         } else {
             $this->defaultCallback();
@@ -40,28 +42,29 @@ class Breadcrumbs
     protected function getRootItem()
     {
         if ($this->config['params']['home']) {
-            return [
-                'label' => $this->config['params']['home'],
-                'url' => Url::to('/'),
-            ];
+            return Item::make($this->config['params']['home'], Url::to('/'));
         }
         return null;
     }
 
     protected function runCurrentCallback()
     {
-        $path = Request::path();
+        $uri = Request::path();
 
-        foreach ($this->config['items'] as $expression => $function) {
-            if (preg_match($expression, $path, $matches)) {
-                $function($matches, $this->items, $this->page);
+        foreach ($this->config['paths'] as $path) {
+            /**
+             * @var Path $path
+             */
+            if (preg_match($path->getExpression(), $uri, $matches)) {
+                $path->getCallback()($matches, $this->items, $this->page);
                 break;
             }
             $this->defaultCallback();
         }
     }
 
-    protected function defaultCallback() {
-        $this->items->add($this->page->title);
+    protected function defaultCallback()
+    {
+        $this->items->add(Item::make($this->page->title));
     }
 }

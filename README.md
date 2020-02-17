@@ -1,11 +1,13 @@
 ## Config
 ```PHP
-'items' => [
-    '/^about$/' => function ($matches, Items $items, $page) {
-        $items->add('About');
-    },
-],
-'params' => [
-    'home' => 'Главная',
-],
+return [
+    'paths' => [
+        Path::make('#^uslugi$#', function ($matches, Items $items, $page) {
+            $items->add(Item::make('Услуги'));
+        }),
+    ],
+    'params' => [
+        'home' => 'Главная',
+    ],
+];
 ```

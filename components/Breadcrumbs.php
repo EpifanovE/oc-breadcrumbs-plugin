@@ -63,7 +63,7 @@ class Breadcrumbs extends ComponentBase
 
     public function onRun()
     {
-        $config['items'] = Config::get('eev.breadcrumbs::items');
+        $config['paths'] = Config::get('eev.breadcrumbs::paths');
         $config['params'] = Config::get('eev.breadcrumbs::params');
         $this->breadcrumbsManager = new \EEV\Breadcrumbs\Classes\Breadcrumbs($config, $this->page);
     }
