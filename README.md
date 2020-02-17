@@ -2,8 +2,8 @@
 ```PHP
 return [
     'paths' => [
-        Path::make('#^uslugi$#', function ($matches, Items $items, $page) {
-            $items->add(Item::make('Услуги'));
+        Path::make('#^services#', function ($matches, Items $items, $page) {
+            $items->add(Item::make('Services'));
         }),
     ],
     'params' => [
