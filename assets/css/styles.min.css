@@ -1,0 +1,25 @@
+.breadcrumbs {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+  .breadcrumbs__item {
+    margin-right: .5rem; }
+    .breadcrumbs__item:after {
+      font-family: Font Awesome\ 5 Free;
+      font-weight: 900;
+      font-size: 12px;
+      content: "\f105"; }
+    .breadcrumbs__item:last-child:after {
+      content: none; }
+  .breadcrumbs__link {
+    text-decoration: none;
+    -webkit-transition: color .3s ease-in-out;
+    transition: color .3s ease-in-out;
+    margin-right: .5rem; }
+
+/*# sourceMappingURL=styles.min.css.map */
